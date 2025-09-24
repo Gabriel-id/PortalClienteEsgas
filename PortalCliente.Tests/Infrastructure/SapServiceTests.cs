@@ -79,7 +79,7 @@ public class SapServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task Authenticate_Should_Return_Empty_Response_When_Http_Error()
+    public async Task Authenticate_Should_Throw_Exception_When_Http_Error()
     {
         var authRequest = new AuthRequest { ClientNumber = "12345", Cpf = "12345678901" };
         var httpResponse = new HttpResponseMessage(HttpStatusCode.BadRequest);
@@ -92,30 +92,31 @@ public class SapServiceTests : IDisposable
                 ItExpr.IsAny<CancellationToken>())
             .ReturnsAsync(httpResponse);
 
-        var result = await _sapService.Authenticate(authRequest);
+        var action = async () => await _sapService.Authenticate(authRequest);
 
-        result.Should().NotBeNull();
-        result.ClientCode.Should().BeNullOrEmpty();
-        result.ClientName.Should().BeNullOrEmpty();
+        await action.Should().ThrowAsync<HttpRequestException>();
     }
 
     [Fact]
     public async Task GetInvoices_Should_Return_Invoices_List_When_Successful()
     {
-        var expectedInvoices = new[]
+        var invoicesData = new InvoicesData
         {
-            new Invoice
+            Invoices = new[]
             {
-                Document = "001",
-                InvoiceNumber = "123456",
-                Value = "R$ 89,50",
-                DueDate = "2024-01-15",
-                Status = "Pendente",
-                BarcodeNumber = "12345678901234567890123456789012345678901234567890"
+                new Invoice
+                {
+                    Document = "001",
+                    InvoiceNumber = "123456",
+                    Value = "R$ 89,50",
+                    DueDate = "2024-01-15",
+                    Status = "Pendente",
+                    BarcodeNumber = "12345678901234567890123456789012345678901234567890"
+                }
             }
         };
 
-        var responseJson = JsonSerializer.Serialize(expectedInvoices);
+        var responseJson = JsonSerializer.Serialize(invoicesData);
 
         var httpResponse = new HttpResponseMessage(HttpStatusCode.OK)
         {

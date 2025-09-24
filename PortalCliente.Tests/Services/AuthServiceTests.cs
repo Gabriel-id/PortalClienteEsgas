@@ -63,16 +63,19 @@ public class AuthServiceTests
     }
 
     [Fact]
-    public async Task AuthenticateAsync_Should_Return_Null_When_SAP_Returns_Null()
+    public async Task AuthenticateAsync_Should_Return_Empty_Response_When_SAP_Returns_Empty()
     {
         var login = new Login { Username = "12345678901", Password = "12345" };
+        var emptyResponse = new AuthResponse { ClientCode = "", ClientName = "" };
 
         _sapServiceMock
             .Setup(x => x.Authenticate(It.IsAny<AuthRequest>()))
-            .ReturnsAsync(new AuthResponse());
+            .ReturnsAsync(emptyResponse);
 
         var result = await _authService.Authenticate(login);
 
-        result.Should().BeNull();
+        result.Should().NotBeNull();
+        result.ClientCode.Should().BeEmpty();
+        result.ClientName.Should().BeEmpty();
     }
 }
