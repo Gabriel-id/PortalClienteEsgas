@@ -1,4 +1,4 @@
-namespace PortalCliente.Core.Configuration;
+namespace PortalCliente.Infrastructure.Configuration;
 
 public class SapServiceOptions
 {

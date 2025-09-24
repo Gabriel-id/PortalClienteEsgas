@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
 using Moq.Protected;
-using PortalCliente.Core.Configuration;
+using PortalCliente.Infrastructure.Configuration;
 using PortalCliente.Core.Dtos;
 using PortalCliente.Infrastructure.Services;
 

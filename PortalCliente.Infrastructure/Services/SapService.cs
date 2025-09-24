@@ -1,6 +1,6 @@
 ﻿using PortalCliente.Core.Dtos;
 using PortalCliente.Core.Interfaces.Services;
-using PortalCliente.Core.Configuration;
+using PortalCliente.Infrastructure.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Text;

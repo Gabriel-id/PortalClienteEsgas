@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Options;
 using PortalCliente.Core.Interfaces.Services;
 using PortalCliente.Core.Services;
+using PortalCliente.Infrastructure.Configuration;
 using PortalCliente.Infrastructure.Services;
 using PortalCliente.Middleware;
 using Serilog;
@@ -34,13 +35,13 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddValidatorsFromAssemblyContaining<PortalCliente.Core.Validators.LoginValidator>();
 
 // Configure SAP Service options
-builder.Services.Configure<PortalCliente.Core.Configuration.SapServiceOptions>(
-    builder.Configuration.GetSection(PortalCliente.Core.Configuration.SapServiceOptions.SectionName));
+builder.Services.Configure<SapServiceOptions>(
+    builder.Configuration.GetSection(SapServiceOptions.SectionName));
 
 // Configure HttpClient for SAP service
 builder.Services.AddHttpClient<ISapService, SapService>((serviceProvider, client) =>
 {
-    var sapOptions = serviceProvider.GetRequiredService<IOptions<PortalCliente.Core.Configuration.SapServiceOptions>>().Value;
+    var sapOptions = serviceProvider.GetRequiredService<IOptions<SapServiceOptions>>().Value;
     client.BaseAddress = new Uri(sapOptions.BaseUrl);
     client.Timeout = TimeSpan.FromSeconds(sapOptions.TimeoutSeconds);
 });
