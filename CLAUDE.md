@@ -109,3 +109,32 @@ The solution integrates with SAP via:
 - Structured JSON logging with context enrichment
 - Console and file sinks configured
 - Different log levels for Microsoft/System vs application code
+
+### Test Coverage
+- Automated unit tests implemented with xUnit, Moq, and FluentAssertions
+- Test coverage for validators (LoginValidator, AuthRequestValidator)
+- Test coverage for core services (AuthService, InvoicesService)
+- Test coverage for infrastructure services (SapService with HttpClient mocking)
+- 22 tests implemented covering critical business logic
+
+## Testing Commands
+
+Run all tests:
+```bash
+dotnet test
+```
+
+Run specific test project:
+```bash
+dotnet test PortalCliente.Tests
+```
+
+Run tests with coverage:
+```bash
+dotnet test --collect:"XPlat Code Coverage"
+```
+
+Run tests with detailed output:
+```bash
+dotnet test --verbosity normal
+```
