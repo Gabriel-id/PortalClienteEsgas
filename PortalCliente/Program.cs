@@ -6,6 +6,7 @@ using PortalCliente.Core.Services;
 using PortalCliente.Infrastructure.Configuration;
 using PortalCliente.Infrastructure.Services;
 using PortalCliente.Middleware;
+using PortalCliente.Services;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -51,6 +52,18 @@ builder.Services.AddScoped<IInvoicesService, InvoicesService>();
 
 var app = builder.Build();
 
+// Configure MockSapServer for Development
+MockSapServer? mockServer = null;
+if (app.Environment.IsDevelopment())
+{
+    var useMock = app.Configuration.GetValue<bool>("SapService:UseMock", false);
+    if (useMock)
+    {
+        mockServer = new MockSapServer(app.Services.GetRequiredService<ILogger<MockSapServer>>());
+        mockServer.Start(8080);
+    }
+}
+
 // Configure the HTTP request pipeline.
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
@@ -72,5 +85,11 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+// Ensure MockServer is disposed on shutdown
+if (mockServer != null)
+{
+    app.Lifetime.ApplicationStopping.Register(() => mockServer.Dispose());
+}
 
 app.Run();

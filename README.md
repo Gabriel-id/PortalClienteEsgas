@@ -58,6 +58,7 @@ O **Portal Cliente Esgas** é uma aplicação web completa desenvolvida em .NET 
 - **Entity Framework Core** - ORM (futuro)
 - **Serilog** - Logging estruturado
 - **FluentValidation** - Validação de dados
+- **WireMock.Net** - MockServer para desenvolvimento
 
 ### Frontend
 - **Bootstrap 5** - Framework CSS
@@ -110,6 +111,101 @@ O **Portal Cliente Esgas** é uma aplicação web completa desenvolvida em .NET 
    dotnet run
    # Acesse: https://localhost:7044/swagger
    ```
+
+## 🧪 MockServer para Desenvolvimento
+
+Para facilitar o desenvolvimento local sem dependência da API SAP externa, foi implementado um **MockServer** usando **WireMock.Net**.
+
+### 🚀 Ativação do MockServer
+
+**1. Configure o `appsettings.Development.json`:**
+```json
+{
+  "SapService": {
+    "BaseUrl": "http://localhost:8080/sap/bc/inbound/",
+    "Username": "mock",
+    "Password": "mock",
+    "UseMock": true
+  }
+}
+```
+
+**2. Execute a aplicação:**
+```bash
+cd PortalCliente
+dotnet run
+```
+
+O MockServer será iniciado automaticamente em `http://localhost:8080` quando:
+- Environment = Development
+- `SapService:UseMock = true`
+
+### 📋 Dados Mock Disponíveis
+
+**Cliente de teste:**
+- **Código**: 12345
+- **Nome**: Cliente Teste Mock
+- **Token**: mock-token-123456789
+
+**Faturas mockadas:**
+```json
+[
+  {
+    "document": "DOC001",
+    "invoiceNumber": "INV001",
+    "value": "150.75",
+    "dueDate": "2024-02-15",
+    "status": "Em aberto",
+    "invoiceStatus": "PENDENTE"
+  },
+  {
+    "document": "DOC002",
+    "invoiceNumber": "INV002",
+    "value": "89.50",
+    "dueDate": "2024-03-15",
+    "status": "Vencida",
+    "invoiceStatus": "VENCIDA"
+  },
+  {
+    "document": "DOC003",
+    "invoiceNumber": "INV003",
+    "value": "205.25",
+    "dueDate": "2024-04-15",
+    "status": "Paga",
+    "invoiceStatus": "PAGA"
+  }
+]
+```
+
+### 🔄 Endpoints Mock Implementados
+
+| Endpoint | Método | Descrição |
+|----------|---------|-----------|
+| `/sap/bc/inbound/DATAGAS003` | POST | Autenticação mock |
+| `/sap/bc/inbound/DATAGAS004` | GET | Lista de faturas mock |
+| `/sap/bc/inbound/DATAGAS005` | GET | Conteúdo da fatura mock |
+
+### ⚙️ Alternar entre Mock e API Real
+
+**Para usar a API real SAP:**
+```json
+{
+  "SapService": {
+    "BaseUrl": "http://srv-sap-prd.esgas.com.br:8000/sap/bc/inbound/",
+    "Username": "DATAGAS",
+    "Password": "Datagas@2023",
+    "UseMock": false
+  }
+}
+```
+
+### 💡 Vantagens do MockServer
+
+- ✅ **Desenvolvimento offline** - Não precisa de conexão com SAP
+- ✅ **Dados controlados** - Responses previsíveis para testes
+- ✅ **Performance** - Responses instantâneos
+- ✅ **Debugging** - Logs detalhados das requisições
+- ✅ **Flexibilidade** - Fácil alternância mock ↔ real
 
 ## 🎯 Como Usar
 
@@ -188,6 +284,7 @@ curl -X GET "https://localhost:7044/api/invoices" \
 ├── 📁 PortalCliente/                 # Aplicação MVC Web
 │   ├── 📁 Controllers/               # Controllers MVC
 │   ├── 📁 Views/                     # Views Razor
+│   ├── 📁 Services/                  # MockSapServer
 │   ├── 📁 wwwroot/                   # Arquivos estáticos
 │   └── 📁 Middleware/                # Middlewares customizados
 ├── 📁 PortalClienteAPI/              # Web API REST
