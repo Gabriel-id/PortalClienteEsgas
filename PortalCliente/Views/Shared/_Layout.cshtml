@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PortalCliente</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/PortalCliente.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/toastr.js/toastr.css" />
+</head>
+<body>
+    <header>
+        <div class="nav-bar">
+            <div>
+                <img src="~/assets/images/logo.jpeg" />
+            </div>
+            <div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <span class="user-name"> @User.Claims.FirstOrDefault(c => c.Type == "UserName")?.Value </span>
+                    <form asp-controller="Account" asp-action="Logout" method="post" class="logout-form">
+                        <button type="submit" class="btn btn-outline-danger">
+                            Sair <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        </button>
+                    </form>
+                }
+            </div>
+        </div>
+    </header>
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-white sidebar" style="width: 280px;">
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a href="/" class="nav-link" aria-current="page">
+                    <i class="fa-solid fa-file-invoice"></i>
+                    <span class="m-2 fs-5">2° Via de Fatura</span>
+                </a>
+            </li>         
+        </ul>
+    </div>
+
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/toastr.js/toastr.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)    
+    <script type="text/javascript">
+        $('document').ready(() => {
+            const message = '@TempData["toastMessage"]'
+            if (message != null) sendToastMessage(message)
+        })
+    </script>
+    
+</body>
+</html>

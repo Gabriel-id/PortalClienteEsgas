@@ -1,0 +1,6 @@
+@PortalClienteAPI_HostAddress = http://localhost:5031
+
+GET {{PortalClienteAPI_HostAddress}}/
+Accept: application/json
+
+###

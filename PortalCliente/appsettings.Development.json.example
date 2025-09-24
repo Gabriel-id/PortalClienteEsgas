@@ -1,0 +1,18 @@
+{
+  "Serilog": {
+    "MinimumLevel": {
+      "Default": "Debug"
+    }
+  },
+  "SapService": {
+    "BaseUrl": "http://srv-sap-prd.esgas.com.br:8000/sap/bc/inbound/",
+    "Username": "DATAGAS",
+    "Password": "Datagas@2023",
+    "SapClient": "600",
+    "TimeoutSeconds": 30
+  },
+  "Jwt": {
+    "SecretKey": "c2296ee5-453d-4e85-9680-b68ffbf5d99c",
+    "ExpirationHours": 1
+  }
+}

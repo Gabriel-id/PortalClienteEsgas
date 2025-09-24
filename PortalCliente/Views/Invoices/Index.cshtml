@@ -1,0 +1,125 @@
+﻿@model IEnumerable<PortalCliente.Core.Dtos.Invoice>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<link rel="stylesheet" href="~/css/invoices.css" />
+
+<h3 class="mb-4">2° Via de Fatura</h3>
+<section class="w-100 text-center table-responsive">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Documento</th>
+                <th scope="col">Download</th>
+                <th scope="col" style="width: 15%">Número da Fatura</th>
+                <th scope="col">Emissão</th>
+                <th scope="col">Vencimento</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Juros</th>
+                <th scope="col">Negativado</th>
+                <th scope="col" style="width: 30%">Endereço</th>
+                <th scope="col" style="width: 20%">Código de Barras</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var invoice in Model)
+            {
+                <tr>
+                    <td>@invoice.Document</td>
+                    <td>
+                        <a href="@Url.Action("Download", "Invoices", new { invoiceNumber = invoice.InvoiceNumber, document = invoice.Document })" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Download Fatura">
+                            <i class="fa-solid fa-download"></i>
+                        </a>
+                    </td>
+                    <td>@invoice.InvoiceNumber</td>
+                    <td>@invoice.CreatedAt</td>
+                    <td>@invoice.DueDate</td>
+                    <td>@invoice.Value</td>
+                    <td>@invoice.Penalty</td>
+                    <td>@invoice.IsNegative</td>
+                    <td>@invoice.Address</td>
+                    <td>@invoice.BarcodeNumber</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>
+
+<section class="card-responsive" class="w-100">
+    @foreach (var invoice in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                Documento: @invoice.Document
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Número da Fatura: @invoice.InvoiceNumber</h5>
+                <p class="card-text"><strong>Emissão:</strong> @invoice.CreatedAt</p>
+                <p class="card-text"><strong>Vencimento:</strong> @invoice.DueDate</p>
+                <p class="card-text"><strong>Valor:</strong> @invoice.Value</p>
+                <p class="card-text"><strong>Juros:</strong> @invoice.Penalty</p>
+                <p class="card-text"><strong>Negativado:</strong> @invoice.IsNegative</p>
+                <p class="card-text"><strong>Endereço:</strong> @invoice.Address</p>
+                <p class="card-text"><strong>Código de Barras:</strong> @invoice.BarcodeNumber</p>
+                <a href="@Url.Action("Download", "Invoices", new { invoiceNumber = invoice.InvoiceNumber, document = invoice.Document })" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Download Fatura">
+                    <i class="fa-solid fa-download"></i> Download
+                </a>
+            </div>
+        </div>
+    }
+</section>
+
+
+@* <section class="w-100 d-md-none">
+    <div class="accordion" id="invoiceAccordion">
+        @foreach (var invoice in Model)
+        {
+            <div class="card">
+                <div class="card-header" id="heading-@invoice.InvoiceNumber">
+                    <h2 class="mb-0">
+                        <button class="btn btn-block text-left d-flex justify-content-between align-items-center" type="button" data-toggle="collapse" data-target="#collapse-@invoice.InvoiceNumber" aria-expanded="true" aria-controls="collapse-@invoice.InvoiceNumber">
+                            <span>Número da Fatura: @invoice.InvoiceNumber</span>
+                            <i class="fas fa-chevron-down" id="icon-@invoice.InvoiceNumber"></i>
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="collapse-@invoice.InvoiceNumber" class="collapse" aria-labelledby="heading-@invoice.InvoiceNumber" data-parent="#invoiceAccordion">
+                    <div class="card-body">
+                        <p><strong>Vencimento:</strong> @invoice.DueDate</p>
+                        <p>
+                            <strong>Download:</strong>
+                            <a href="@Url.Action("Download", "Invoices", new { invoiceNumber = invoice.InvoiceNumber, document = invoice.Document })" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Download Fatura">
+                                <i class="fa-solid fa-download"></i> Download
+                            </a>
+                        </p>
+                        <p><strong>Documento:</strong> @invoice.Document</p>
+                        <p><strong>Emissão:</strong> @invoice.CreatedAt</p>
+                        <p><strong>Valor:</strong> @invoice.Value</p>
+                        <p><strong>Juros:</strong> @invoice.Penalty</p>
+                        <p><strong>Negativado:</strong> @invoice.IsNegative</p>
+                        <p><strong>Endereço:</strong> @invoice.Address</p>
+                        <p><strong>Código de Barras:</strong> @invoice.BarcodeNumber</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('.collapse').on('shown.bs.collapse', function () {
+            var icon = $(this).parent().find('.fa-chevron-down');
+            icon.removeClass('fa-chevron-down').addClass('fa-chevron-up');
+        }).on('hidden.bs.collapse', function () {
+            var icon = $(this).parent().find('.fa-chevron-up');
+            icon.removeClass('fa-chevron-up').addClass('fa-chevron-down');
+        });
+    });
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> *@
