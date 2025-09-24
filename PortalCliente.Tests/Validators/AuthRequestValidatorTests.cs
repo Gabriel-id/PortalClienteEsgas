@@ -25,7 +25,7 @@ public class AuthRequestValidatorTests
         var result = _validator.Validate(request);
 
         result.IsValid.Should().BeFalse();
-        result.Errors.Should().Contain(x => x.ErrorMessage.Contains("Either CPF or CNPJ"));
+        result.Errors.Should().Contain(x => x.ErrorMessage.Contains("CPF ou CNPJ deve ser fornecido"));
     }
 
     [Fact]

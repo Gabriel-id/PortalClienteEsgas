@@ -23,7 +23,7 @@ namespace PortalCliente.Controllers
 
             if (string.IsNullOrEmpty(invoice?.PdfContent))
             {
-                SendToastMessage("Unable to download invoice, please try again later", "error");
+                SendToastMessage("Não foi possível baixar a fatura, por favor tente novamente mais tarde", "error");
                 return NotFound();
             }
 

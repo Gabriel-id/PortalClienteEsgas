@@ -9,26 +9,26 @@ public class AuthRequestValidator : AbstractValidator<AuthRequest>
     {
         RuleFor(x => x.ClientNumber)
             .NotEmpty()
-            .WithMessage("Client number is required")
+            .WithMessage("Número do cliente é obrigatório")
             .Length(1, 20)
-            .WithMessage("Client number must be between 1 and 20 characters");
+            .WithMessage("Número do cliente deve ter entre 1 e 20 caracteres");
 
         RuleFor(x => x)
             .Must(HaveValidCpfOrCnpj)
-            .WithMessage("Either CPF or CNPJ must be provided");
+            .WithMessage("CPF ou CNPJ deve ser fornecido");
 
         When(x => !string.IsNullOrEmpty(x.Cpf), () =>
         {
             RuleFor(x => x.Cpf)
                 .Must(BeValidCpf)
-                .WithMessage("CPF must have 11 digits");
+                .WithMessage("CPF deve ter 11 dígitos");
         });
 
         When(x => !string.IsNullOrEmpty(x.Cnpj), () =>
         {
             RuleFor(x => x.Cnpj)
                 .Must(BeValidCnpj)
-                .WithMessage("CNPJ must have 14 digits");
+                .WithMessage("CNPJ deve ter 14 dígitos");
         });
     }
 

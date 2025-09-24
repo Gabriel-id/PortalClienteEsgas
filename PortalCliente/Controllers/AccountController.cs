@@ -28,7 +28,7 @@ namespace PortalCliente.Controllers
                 {
                     ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
                 }
-                SendToastMessage("Please correct the validation errors", "error");
+                SendToastMessage("Por favor, corrija os erros de validação", "error");
                 return View(login);
             }
 
@@ -51,11 +51,11 @@ namespace PortalCliente.Controllers
                     return RedirectToAction("Index", "Invoices");
                 }
 
-                SendToastMessage("Invalid credentials, please check and try again", "error");
+                SendToastMessage("Credenciais inválidas, por favor verifique e tente novamente", "error");
             }
             catch (Exception)
             {
-                SendToastMessage("An error occurred during login, please try again", "error");
+                SendToastMessage("Ocorreu um erro durante o login, por favor tente novamente", "error");
             }
 
             return View(login);

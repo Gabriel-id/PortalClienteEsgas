@@ -9,15 +9,15 @@ public class LoginValidator : AbstractValidator<Login>
     {
         RuleFor(x => x.Username)
             .NotEmpty()
-            .WithMessage("Username is required")
+            .WithMessage("Nome de usuário é obrigatório")
             .Must(BeValidCpfOrCnpj)
-            .WithMessage("Username must be a valid CPF (11 digits) or CNPJ (14 digits)");
+            .WithMessage("Nome de usuário deve ser um CPF válido (11 dígitos) ou CNPJ (14 dígitos)");
 
         RuleFor(x => x.Password)
             .NotEmpty()
-            .WithMessage("Client number is required")
+            .WithMessage("Número do cliente é obrigatório")
             .Length(1, 20)
-            .WithMessage("Client number must be between 1 and 20 characters");
+            .WithMessage("Número do cliente deve ter entre 1 e 20 caracteres");
     }
 
     private static bool BeValidCpfOrCnpj(string username)
