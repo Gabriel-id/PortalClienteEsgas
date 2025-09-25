@@ -41,7 +41,8 @@ namespace PortalCliente.Controllers
                     var claims = new List<Claim>
                     {
                         new("UserName", loginResult.ClientName),
-                        new("ClientCode", loginResult.Token)
+                        new("ClientCode", loginResult.Token),
+                        new("LoginTime", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ"))
                     };
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

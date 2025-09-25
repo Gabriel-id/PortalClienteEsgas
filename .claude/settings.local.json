@@ -15,7 +15,15 @@
       "Bash(libman restore:*)",
       "Bash(dotnet tool restore:*)",
       "Bash(dotnet tool install:*)",
-      "SlashCommand(/conventional-commit)"
+      "SlashCommand(/conventional-commit)",
+      "Bash(gh repo create:*)",
+      "Bash(git push:*)",
+      "Bash(dotnet dev-certs:*)",
+      "Bash(dotnet clean:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(tasklist:*)",
+      "Bash(del \"C:\\dev\\dotnet\\PortalClienteEsgas\\PortalCliente\\Extensions\\SecurityHeadersExtensions.cs\")"
     ],
     "deny": [],
     "ask": []

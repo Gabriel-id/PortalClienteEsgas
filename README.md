@@ -96,7 +96,16 @@ O **Portal Cliente Esgas** é uma aplicação web completa desenvolvida em .NET 
    cp PortalCliente/appsettings.json PortalCliente/appsettings.Development.json
    ```
 
-4. **Execute a aplicação**
+4. **Configure o certificado de desenvolvimento SSL**
+   ```bash
+   # Limpar certificados existentes
+   dotnet dev-certs https --clean
+
+   # Criar e confiar em um novo certificado
+   dotnet dev-certs https --trust
+   ```
+
+5. **Execute a aplicação**
 
    **Portal Web:**
    ```bash
@@ -111,6 +120,53 @@ O **Portal Cliente Esgas** é uma aplicação web completa desenvolvida em .NET 
    dotnet run
    # Acesse: https://localhost:7044/swagger
    ```
+
+## 🚨 Troubleshooting
+
+### ❌ Erro de Certificado SSL
+
+Se você encontrar erros como:
+```
+WebSocket connection to 'wss://localhost:44317/' failed: Error in connection establishment: net::ERR_CERT_DATE_INVALID
+```
+
+**Solução:**
+
+1. **Regenerar certificado de desenvolvimento:**
+   ```bash
+   dotnet dev-certs https --clean
+   dotnet dev-certs https --trust
+   ```
+
+2. **Se o problema persistir:**
+   ```bash
+   dotnet dev-certs https --clean
+   dotnet dev-certs https --check --trust
+   dotnet clean
+   dotnet build
+   ```
+
+3. **Limpar cache do browser:**
+   - Pressione `Ctrl + Shift + Delete`
+   - Limpe cookies e dados de site
+   - Ou use uma aba anônima/privada
+
+4. **Verificar portas em uso:**
+   - Confira se as portas no `launchSettings.json` estão corretas
+   - Feche outras instâncias da aplicação
+
+### 🔧 Comandos Úteis para Desenvolvimento
+
+```bash
+# Verificar status do certificado
+dotnet dev-certs https --check --trust
+
+# Limpar projeto completamente
+dotnet clean && dotnet build
+
+# Executar com porta específica
+dotnet run --urls "https://localhost:7187;http://localhost:5051"
+```
 
 ## 🧪 MockServer para Desenvolvimento
 
