@@ -11,14 +11,19 @@ namespace PortalCliente.Extensions
             ConfigureMockServer(app);
 
             // Global Exception Handling
-            app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             // Configure the HTTP request pipeline
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
+                app.UseStatusCodePagesWithReExecute("/Home/NotFound", "?statusCode={0}");
                 app.UseHsts();
                 app.UseSecurityHeaders();
+            }
+            else
+            {
+                app.UseStatusCodePagesWithReExecute("/Home/NotFound", "?statusCode={0}");
             }
 
             // Standard Pipeline

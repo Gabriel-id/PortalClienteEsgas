@@ -4,12 +4,12 @@ using System.Text.Json;
 
 namespace PortalCliente.Middleware;
 
-public class GlobalExceptionHandlingMiddleware
+public class ExceptionHandlerMiddleware
 {
     private readonly RequestDelegate _next;
-    private readonly ILogger<GlobalExceptionHandlingMiddleware> _logger;
+    private readonly ILogger<ExceptionHandlerMiddleware> _logger;
 
-    public GlobalExceptionHandlingMiddleware(RequestDelegate next, ILogger<GlobalExceptionHandlingMiddleware> logger)
+    public ExceptionHandlerMiddleware(RequestDelegate next, ILogger<ExceptionHandlerMiddleware> logger)
     {
         _next = next;
         _logger = logger;
@@ -30,33 +30,44 @@ public class GlobalExceptionHandlingMiddleware
 
     private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
-        context.Response.ContentType = "application/json";
-
         var response = context.Response;
-        var errorResponse = new ErrorResponse();
+        string toastMessage;
 
         switch (exception)
         {
             case HttpRequestException:
                 response.StatusCode = (int)HttpStatusCode.ServiceUnavailable;
-                errorResponse.Message = "External service is temporarily unavailable";
+                toastMessage = "Serviço temporariamente indisponível. Tente novamente em alguns momentos.";
                 break;
             case UnauthorizedAccessException:
                 response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                errorResponse.Message = "Unauthorized access";
+                toastMessage = "Acesso não autorizado. Faça login novamente.";
                 break;
             case ArgumentException:
                 response.StatusCode = (int)HttpStatusCode.BadRequest;
-                errorResponse.Message = "Invalid request parameters";
+                toastMessage = "Parâmetros inválidos na solicitação.";
                 break;
             default:
                 response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                errorResponse.Message = "An internal server error occurred";
+                toastMessage = "Ocorreu um erro interno. Tente novamente ou entre em contato com o suporte.";
                 break;
         }
 
-        var jsonResponse = JsonSerializer.Serialize(errorResponse);
-        await context.Response.WriteAsync(jsonResponse);
+        if (context.Request.Headers.XRequestedWith == "XMLHttpRequest")
+        {
+            context.Response.ContentType = "application/json";
+            var errorResponse = new ErrorResponse
+            {
+                Message = toastMessage,
+                StatusCode = response.StatusCode
+            };
+            var jsonResponse = JsonSerializer.Serialize(errorResponse);
+            await context.Response.WriteAsync(jsonResponse);
+        }
+        else
+        {
+            response.Redirect("/Home/Error");
+        }
     }
 }
 

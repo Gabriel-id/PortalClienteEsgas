@@ -11,6 +11,7 @@ namespace PortalCliente.Controllers
     {
         public async Task<IActionResult> Index()
         {
+
             var invoices = await invoiceService.GetInvoices(GetUser().ClientCode);
 
             return View(invoices);

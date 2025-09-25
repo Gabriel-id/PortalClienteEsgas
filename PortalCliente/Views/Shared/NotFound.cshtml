@@ -1,6 +1,5 @@
-﻿@model ErrorViewModel
-@{
-    ViewData["Title"] = "Ops! Algo deu errado";
+﻿@{
+    ViewData["Title"] = "Página não encontrada";
     Layout = null;
 }
 
@@ -27,35 +26,35 @@
 
     <div class="login-container">
         <div class="login-box">
-            <!-- Ícone de erro -->
+            <!-- Ícone 404 -->
             <div class="mb-4">
-                <i class="fas fa-exclamation-triangle" style="font-size: 4rem; color: #F59E0B;"></i>
+                <i class="fas fa-search" style="font-size: 4rem; color: var(--esgas-primary);"></i>
             </div>
 
             <!-- Mensagem principal -->
             <h1 style="font-size: 2rem; font-weight: 600; color: var(--neutral-800); margin-bottom: 1rem;">
-                Ops! Algo deu errado
+                404 - Página não encontrada
             </h1>
 
             <p style="color: var(--neutral-600); font-size: 1.1rem; line-height: 1.6; margin-bottom: 2rem;">
-                Encontramos um problema inesperado. Tente novamente mais tarde e, caso o problema persista, entre em contato com nossos canais de atendimento.
+                A página que você está procurando não existe ou foi movida para outro endereço.
             </p>
 
             <!-- Sugestões -->
             <div style="margin-bottom: 2rem; text-align: left;">
-                <p style="margin-bottom: 1rem; font-weight: 500; color: var(--neutral-700);">Você pode tentar:</p>
+                <p style="margin-bottom: 1rem; font-weight: 500; color: var(--neutral-700);">Você pode:</p>
                 <ul style="list-style: none; padding: 0; color: var(--neutral-700);">
                     <li style="margin-bottom: 0.5rem; display: flex; align-items: center;">
                         <i class="fas fa-arrow-right" style="color: var(--esgas-primary); margin-right: 0.5rem;"></i>
-                        Recarregar a página
+                        Verificar se o endereço está correto
                     </li>
                     <li style="margin-bottom: 0.5rem; display: flex; align-items: center;">
                         <i class="fas fa-arrow-right" style="color: var(--esgas-primary); margin-right: 0.5rem;"></i>
-                        Voltar à página anterior
+                        Voltar à página inicial
                     </li>
                     <li style="margin-bottom: 0.5rem; display: flex; align-items: center;">
                         <i class="fas fa-arrow-right" style="color: var(--esgas-primary); margin-right: 0.5rem;"></i>
-                        Aguardar alguns minutos e tentar novamente
+                        Usar o menu de navegação
                     </li>
                 </ul>
             </div>
@@ -69,21 +68,6 @@
                     <i class="fas fa-arrow-left" style="margin-right: 0.5rem;"></i>Voltar
                 </button>
             </div>
-
-            <!-- Informações técnicas (apenas em desenvolvimento) -->
-            @if (Model?.ShowRequestId == true)
-            {
-                <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--neutral-200); text-align: center;">
-                    <details>
-                        <summary style="cursor: pointer; color: var(--neutral-500); font-size: 0.9rem;">
-                            Informações técnicas
-                        </summary>
-                        <div style="margin-top: 0.5rem; color: var(--neutral-500); font-size: 0.8rem;">
-                            <strong>ID da Solicitação:</strong> <code>@Model.RequestId</code>
-                        </div>
-                    </details>
-                </div>
-            }
         </div>
     </div>
 </body>

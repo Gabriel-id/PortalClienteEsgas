@@ -23,7 +23,9 @@
       "Bash(netstat:*)",
       "Bash(findstr:*)",
       "Bash(tasklist:*)",
-      "Bash(del \"C:\\dev\\dotnet\\PortalClienteEsgas\\PortalCliente\\Extensions\\SecurityHeadersExtensions.cs\")"
+      "Bash(del \"C:\\dev\\dotnet\\PortalClienteEsgas\\PortalCliente\\Extensions\\SecurityHeadersExtensions.cs\")",
+      "Bash(ren:*)",
+      "Bash(move:*)"
     ],
     "deny": [],
     "ask": []

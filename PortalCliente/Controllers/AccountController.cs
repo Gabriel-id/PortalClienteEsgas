@@ -14,6 +14,11 @@ namespace PortalCliente.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            if (User.Identity?.IsAuthenticated == true)
+            {
+                return RedirectToAction("Index", "Invoices");
+            }
+
             return View();
         }
 
