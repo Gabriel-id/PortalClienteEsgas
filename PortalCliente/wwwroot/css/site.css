@@ -212,91 +212,47 @@ body {
     gap: var(--space-4);
 }
 
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: var(--space-4);
-    padding: var(--space-4) var(--space-6);
-    background: linear-gradient(135deg, rgba(30, 93, 167, 0.05), rgba(46, 109, 183, 0.02));
-    border-radius: var(--radius-2xl);
-    border: 1px solid rgba(30, 93, 167, 0.15);
-    backdrop-filter: blur(15px);
-    box-shadow:
-        0 4px 20px rgba(0, 0, 0, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    transition: var(--transition-all);
-}
-
-.user-info:hover {
-    background: linear-gradient(135deg, rgba(30, 93, 167, 0.08), rgba(46, 109, 183, 0.04));
-    border-color: rgba(30, 93, 167, 0.25);
-    box-shadow:
-        0 8px 30px rgba(0, 0, 0, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15);
-}
-
-.user-info i {
+/* Customizações para dropdown do usuário */
+.nav-user .dropdown-toggle {
+    border-color: var(--esgas-primary);
     color: var(--esgas-primary);
-    font-size: var(--text-lg);
-    opacity: 0.8;
+    font-weight: var(--font-medium);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-lg);
     transition: var(--transition-all);
+    box-shadow: var(--shadow-xs);
 }
 
-.user-name {
+.nav-user .dropdown-toggle:hover,
+.nav-user .dropdown-toggle:focus,
+.nav-user .dropdown-toggle.show {
+    background-color: var(--esgas-primary);
+    border-color: var(--esgas-primary);
+    color: white !important;
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-user .dropdown-menu {
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--neutral-200);
+    box-shadow: var(--shadow-lg);
+    min-width: 200px;
+}
+
+.nav-user .dropdown-item-text {
     font-weight: var(--font-medium);
-    color: var(--neutral-600);
-    font-size: var(--text-base);
-    letter-spacing: 0.2px;
+    color: var(--neutral-700);
+    padding: var(--space-2) var(--space-4);
+}
+
+.nav-user .dropdown-item {
+    font-weight: var(--font-medium);
     transition: var(--transition-colors);
+    padding: var(--space-2) var(--space-4);
 }
 
-.logout-form {
-    margin: 0;
-}
-
-/* Botão sair elegante */
-.logout-form .btn-outline {
-    padding: var(--space-3) var(--space-5);
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.06), rgba(220, 38, 38, 0.02));
-    border: 1px solid rgba(239, 68, 68, 0.2);
-    color: #DC2626;
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    border-radius: var(--radius-xl);
-    transition: var(--transition-all);
-    box-shadow:
-        0 2px 8px rgba(239, 68, 68, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    backdrop-filter: blur(10px);
-    letter-spacing: 0.3px;
-}
-
-.logout-form .btn-outline:hover {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.05));
-    border-color: rgba(239, 68, 68, 0.3);
-    color: #B91C1C;
-    transform: translateY(-1px);
-    box-shadow:
-        0 4px 15px rgba(239, 68, 68, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    text-decoration: none;
-}
-
-.logout-form .btn-outline:active {
-    transform: translateY(0);
-    box-shadow:
-        0 2px 8px rgba(239, 68, 68, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-.logout-form .btn-outline i {
-    font-size: var(--text-sm);
-    opacity: 0.8;
-    transition: var(--transition-all);
+.nav-user .dropdown-item:hover {
+    background-color: rgba(239, 68, 68, 0.1);
 }
 
 .btn-text {
@@ -584,16 +540,9 @@ thead {
         margin-right: var(--space-2);
     }
 
-    .user-info {
-        padding: var(--space-3) var(--space-4);
-        gap: var(--space-3);
-        margin: 0 var(--space-3) var(--space-4) var(--space-3);
-        border-radius: var(--radius-lg);
-    }
-
-    .logout-form .btn-outline {
-        padding: var(--space-1) var(--space-2);
-        font-size: var(--text-xs);
+    .nav-user .dropdown-toggle {
+        padding: var(--space-2) var(--space-3);
+        font-size: var(--text-sm);
     }
 
     .btn-text {
@@ -619,14 +568,8 @@ thead {
         border-radius: var(--radius-md);
     }
 
-    .user-info {
-        padding: var(--space-2) var(--space-3);
-        margin: 0 var(--space-2) var(--space-3) var(--space-2);
-        gap: var(--space-2);
-        border-radius: var(--radius-md);
-    }
-
-    .user-info span {
+    .nav-user .dropdown-toggle {
+        padding: var(--space-1) var(--space-2);
         font-size: var(--text-xs);
     }
 }

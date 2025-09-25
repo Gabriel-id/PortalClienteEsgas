@@ -2,21 +2,13 @@
    LOGIN PAGE - DESIGN MODERNO
    ============================================================================= */
 
-/* Background com gradiente animado */
+/* Background simples e elegante */
 body {
-    background: linear-gradient(-45deg, #1E5DA7, #2E6DB7, #4A88C7, #164A8A);
-    background-size: 400% 400%;
-    animation: gradientShift 15s ease infinite;
+    background: linear-gradient(135deg, var(--neutral-50) 0%, #fefefe 100%);
     margin: 0;
     padding: 0;
     min-height: 100vh;
     font-family: var(--font-family-primary);
-}
-
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
 }
 
 /* Header moderno */
@@ -30,9 +22,9 @@ body {
     top: 0;
     left: 0;
     z-index: var(--z-fixed);
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--neutral-200);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
@@ -85,7 +77,7 @@ body {
         0 10px 25px rgba(0, 0, 0, 0.05),
         inset 0 1px 0 rgba(255, 255, 255, 0.8);
     width: 100%;
-    max-width: 480px;
+    max-width: 520px;
     text-align: center;
     position: relative;
     overflow: hidden;
