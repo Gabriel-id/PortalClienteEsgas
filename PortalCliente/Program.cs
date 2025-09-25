@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.ConfigureLogging();
 
 // Configure Authentication
-builder.Services.AddSecureAuthentication();
+builder.Services.AddSecureAuthentication(builder.Configuration);
 
 // Configure Application Services
 builder.Services.AddApplicationServices(builder.Configuration);

@@ -5,23 +5,26 @@ namespace PortalCliente.Extensions
 {
     public static class AuthenticationServiceExtensions
     {
-        public static IServiceCollection AddSecureAuthentication(this IServiceCollection services)
+        public static IServiceCollection AddSecureAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
+            var sessionExpirationHours = configuration.GetValue<int>("Authentication:SessionExpirationHours", 1);
+            var slidingExpiration = configuration.GetValue<bool>("Authentication:SlidingExpiration", true);
+            var maxSessionAgeHours = configuration.GetValue<int>("Authentication:MaxSessionAgeHours", 12);
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
                     options.LoginPath = "/Account/Login";
                     options.AccessDeniedPath = "/Account/AccessDenied";
-                    options.ExpireTimeSpan = TimeSpan.FromHours(1);
+                    options.ExpireTimeSpan = TimeSpan.FromHours(sessionExpirationHours);
+                    options.SlidingExpiration = slidingExpiration;
 
-                    // Configurações básicas de cookie
-                    options.Cookie.HttpOnly = true; // Previne acesso via JavaScript (XSS)
-                    options.Cookie.Name = "PortalClienteAuth"; // Nome customizado
-                    options.Cookie.SameSite = SameSiteMode.Strict; // Proteção contra CSRF
-                    options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest; // HTTPS em produção, permite HTTP em dev
-                    options.SlidingExpiration = true; // Renova o cookie automaticamente
+                    options.Cookie.HttpOnly = true;
+                    options.Cookie.Name = "PortalClienteAuth";
+                    options.Cookie.SameSite = SameSiteMode.Strict;
+                    options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
 
-                    // Validação de sessão
+
                     options.Events.OnValidatePrincipal = async context =>
                     {
                         var loginTimeClaim = context.Principal?.FindFirst("LoginTime");
@@ -29,8 +32,7 @@ namespace PortalCliente.Extensions
                         {
                             var sessionAge = DateTime.UtcNow - loginTime;
 
-                            // Se passou muito tempo, invalida a sessão
-                            if (sessionAge.TotalHours > 12)
+                            if (sessionAge.TotalHours > maxSessionAgeHours)
                             {
                                 context.RejectPrincipal();
                                 await context.HttpContext.SignOutAsync();
