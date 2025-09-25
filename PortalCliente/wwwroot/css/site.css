@@ -202,8 +202,9 @@ body {
 .nav-brand {
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: var(--space-4);
 }
+
 
 .nav-user {
     display: flex;
@@ -326,10 +327,16 @@ body {
 
 body {
     margin-top: var(--header-height);
-    padding-left: var(--sidebar-width);
     overflow-x: hidden;
     background: linear-gradient(135deg, var(--neutral-50) 0%, #fefefe 100%);
     min-height: 100vh;
+}
+
+/* Desktop layout com sidebar */
+@media (min-width: 768px) {
+    body {
+        padding-left: var(--sidebar-width);
+    }
 }
 
 /* =============================================================================
@@ -353,32 +360,81 @@ body {
 }
 
 /* =============================================================================
-   SIDEBAR MODERNA
+   SIDEBAR DESKTOP - USANDO BOOTSTRAP
    ============================================================================= */
 
-.sidebar {
-    width: var(--sidebar-width) !important;
+.sidebar-desktop {
+    width: var(--sidebar-width);
     position: fixed;
     top: var(--header-height);
-    bottom: 0;
     left: 0;
-    color: white;
+    height: calc(100vh - var(--header-height));
     background: linear-gradient(180deg, var(--esgas-primary) 0%, var(--esgas-primary-dark) 100%);
-    border-right: 1px solid var(--neutral-200);
+    color: white;
     overflow-y: auto;
-    box-shadow: var(--shadow-lg);
     z-index: var(--z-sticky);
-    transition: var(--transition-all);
-    display: flex;
-    flex-direction: column;
 }
 
-.sidebar-header {
+/* Apenas customizações visuais necessárias */
+.sidebar-desktop .offcanvas-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-desktop .offcanvas-title {
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.sidebar-desktop .nav-link {
+    color: white !important;
+    margin: var(--space-1) var(--space-3);
+    border-radius: var(--radius-lg);
+    transition: var(--transition-all);
+    font-weight: var(--font-medium);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.sidebar-desktop .nav-link:hover {
+    color: white !important;
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(4px);
+}
+
+.sidebar-desktop .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    border-left: 3px solid white;
+    margin-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.sidebar-desktop .offcanvas-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    padding: var(--space-4);
+}
+
+/* =============================================================================
+   SIDEBAR MOBILE (OFFCANVAS) - MESMA APARÊNCIA DO DESKTOP
+   ============================================================================= */
+
+.sidebar-mobile {
+    background: linear-gradient(180deg, var(--esgas-primary) 0%, var(--esgas-primary-dark) 100%) !important;
+    color: white;
+    width: var(--sidebar-width) !important;
+}
+
+.sidebar-mobile .offcanvas-header {
     padding: var(--space-6) var(--space-6) var(--space-4);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.sidebar-title {
+.sidebar-mobile .offcanvas-title {
     font-size: var(--text-sm);
     font-weight: var(--font-semibold);
     text-transform: uppercase;
@@ -387,40 +443,11 @@ body {
     margin: 0;
 }
 
-.sidebar-nav {
-    flex: 1;
+.sidebar-mobile .offcanvas-body {
     padding: var(--space-4) 0;
 }
 
-.sidebar-footer {
-    padding: var(--space-4) var(--space-6);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin-top: auto;
-}
-
-.sidebar-user-info {
-    text-align: center;
-}
-
-.nav-text {
-    font-weight: var(--font-medium);
-}
-
-.nav-link.disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-.nav-link.active {
-    background-color: rgba(255, 255, 255, 0.15) !important;
-    box-shadow: var(--shadow-sm);
-    border-left: 3px solid white;
-    margin-left: 0;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
-
-.nav-link {
+.sidebar-mobile .nav-link {
     color: white !important;
     padding: var(--space-4) var(--space-6) !important;
     margin: var(--space-1) var(--space-3);
@@ -432,11 +459,31 @@ body {
     gap: var(--space-3);
 }
 
-.nav-link:hover {
+.sidebar-mobile .nav-link:hover {
     color: white !important;
     background-color: rgba(255, 255, 255, 0.1);
     transform: translateX(4px);
-    box-shadow: var(--shadow-sm);
+}
+
+.sidebar-mobile .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    border-left: 3px solid white;
+    margin-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.sidebar-mobile .offcanvas-footer {
+    padding: var(--space-4) var(--space-6);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    margin-top: auto;
+}
+
+/* Garantir que o offcanvas mobile tenha display flex */
+.sidebar-mobile {
+    display: flex !important;
+    flex-direction: column !important;
 }
 
 /* =============================================================================
@@ -485,23 +532,6 @@ thead {
    ============================================================================= */
 
 @media (max-width: 900px) {
-    .sidebar {
-        width: var(--sidebar-width-collapsed) !important;
-    }
-
-    .nav-item span {
-        display: none;
-    }
-
-    .nav-item i {
-        font-size: var(--text-xl);
-    }
-
-    body {
-        padding-left: var(--sidebar-width-collapsed);
-        padding-right: 0;
-    }
-
     .main-content {
         padding: var(--space-4);
     }
@@ -532,18 +562,6 @@ thead {
    ============================================================================= */
 
 @media (max-width: 768px) {
-    /* Esconder sidebar completamente no mobile */
-    .sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-    }
-
-    body {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        margin: 0;
-    }
-
     .main-content {
         padding: 0;
         margin-left: 0;

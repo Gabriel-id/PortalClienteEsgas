@@ -20,6 +20,9 @@
     <header>
         <nav class="nav-bar">
             <div class="nav-brand">
+                <button class="btn btn-outline-primary d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
                 <img src="~/assets/images/logo.jpeg" alt="Logo ESGAS" class="logo" />
             </div>
             <div class="nav-user">
@@ -40,43 +43,50 @@
         </nav>
     </header>
     <!-- ===============================================
-         SIDEBAR MODERNA
+         SIDEBAR BOOTSTRAP OFFCANVAS
          =============================================== -->
-    <aside class="sidebar">
-        <div class="sidebar-header">
-            <h5 class="sidebar-title">Menu Principal</h5>
-        </div>
-        <nav class="sidebar-nav">
-            <ul class="nav nav-pills flex-column">
-                <li class="nav-item">
-                    <a href="/" class="nav-link active" aria-current="page" title="2ª Via de Fatura">
-                        <i class="fa-solid fa-file-invoice"></i>
-                        <span class="nav-text">2ª Via de Fatura</span>
-                    </a>
-                </li>
-                <!-- Espaço para futuras funcionalidades -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link disabled" title="Em breve">
-                        <i class="fa-solid fa-chart-line"></i>
-                        <span class="nav-text">Consumo</span>
-                        <span class="badge bg-secondary ms-auto">Em breve</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link disabled" title="Em breve">
-                        <i class="fa-solid fa-user-circle"></i>
-                        <span class="nav-text">Meu Perfil</span>
-                        <span class="badge bg-secondary ms-auto">Em breve</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <div class="sidebar-footer">
-            <div class="sidebar-user-info">
+    <!-- Desktop Sidebar -->
+    <aside class="d-none d-md-block sidebar-desktop">
+        <div class="d-flex flex-column h-100">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">Menu Principal</h5>
+            </div>
+            <div class="offcanvas-body flex-grow-1">
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link active" aria-current="page" title="2ª Via de Fatura">
+                            <i class="fa-solid fa-file-invoice"></i>
+                            <span class="nav-text">2ª Via de Fatura</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="offcanvas-footer mt-auto">
                 <small class="text-white-50">Portal Cliente ESGAS</small>
             </div>
         </div>
     </aside>
+
+    <!-- Mobile Offcanvas -->
+    <div class="offcanvas offcanvas-start sidebar-mobile" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="sidebarLabel">Menu Principal</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a href="/" class="nav-link active" aria-current="page">
+                        <i class="fa-solid fa-file-invoice"></i>
+                        <span class="nav-text">2ª Via de Fatura</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="offcanvas-footer">
+            <small class="text-white-50">Portal Cliente ESGAS</small>
+        </div>
+    </div>
 
     <!-- ===============================================
          CONTEÚDO PRINCIPAL
