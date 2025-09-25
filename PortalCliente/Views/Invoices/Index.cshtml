@@ -6,39 +6,67 @@
 
 <link rel="stylesheet" href="~/css/invoices.css" />
 
-<h3 class="mb-4">2° Via de Fatura</h3>
-<section class="w-100 text-center table-responsive">
-    <table class="table table-hover">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">Documento</th>
-                <th scope="col">Download</th>
-                <th scope="col" style="width: 15%">Número da Fatura</th>
-                <th scope="col">Emissão</th>
-                <th scope="col">Vencimento</th>
-                <th scope="col">Valor</th>
-                <th scope="col">Juros</th>
-                <th scope="col">Negativado</th>
-                <th scope="col" style="width: 30%">Endereço</th>
-                <th scope="col" style="width: 20%">Código de Barras</th>
-            </tr>
-        </thead>
+<!-- Header da página -->
+<div class="page-header">
+    <div>
+        <h1><i class="fas fa-file-invoice"></i> 2ª Via de Fatura</h1>
+    </div>
+    <div>
+        <p>Acesse e baixe suas faturas de forma fácil e rápida</p>
+    </div>
+</div>
+
+<!-- Tabela para desktop -->
+<section class="table-responsive">
+    <table class="table table-hover table-modern">
+            <thead>
+                <tr>
+                    <th scope="col"><i class="fas fa-id-card"></i> Documento</th>
+                    <th scope="col"><i class="fas fa-download"></i> Download</th>
+                    <th scope="col"><i class="fas fa-hashtag"></i> Nº Fatura</th>
+                    <th scope="col"><i class="fas fa-calendar-plus"></i> Emissão</th>
+                    <th scope="col"><i class="fas fa-calendar-times"></i> Vencimento</th>
+                    <th scope="col"><i class="fas fa-dollar-sign"></i> Valor</th>
+                    <th scope="col"><i class="fas fa-percent"></i> Juros</th>
+                    <th scope="col"><i class="fas fa-exclamation-circle"></i> Status</th>
+                    <th scope="col"><i class="fas fa-map-marker-alt"></i> Endereço</th>
+                    <th scope="col"><i class="fas fa-barcode"></i> Código</th>
+                </tr>
+            </thead>
         <tbody>
             @foreach (var invoice in Model)
             {
                 <tr>
                     <td>@invoice.Document</td>
                     <td>
-                        <a href="@Url.Action("Download", "Invoices", new { invoiceNumber = invoice.InvoiceNumber, document = invoice.Document })" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Download Fatura">
-                            <i class="fa-solid fa-download"></i>
+                        <a href="@Url.Action("Download", "Invoices", new { invoiceNumber = invoice.InvoiceNumber, document = invoice.Document })"
+                           class="btn-download"
+                           data-bs-toggle="tooltip"
+                           data-bs-placement="top"
+                           title="Baixar fatura PDF">
+                            <i class="fas fa-download"></i>
+                            PDF
                         </a>
                     </td>
                     <td>@invoice.InvoiceNumber</td>
-                    <td>@invoice.CreatedAt</td>
-                    <td>@invoice.DueDate</td>
+                    <td>@(DateTime.TryParse(invoice.CreatedAt, out var createdDate) ? createdDate.ToString("dd/MM/yyyy") : invoice.CreatedAt)</td>
+                    <td>@(DateTime.TryParse(invoice.DueDate, out var dueDate) ? dueDate.ToString("dd/MM/yyyy") : invoice.DueDate)</td>
                     <td>@invoice.Value</td>
                     <td>@invoice.Penalty</td>
-                    <td>@invoice.IsNegative</td>
+                    <td>
+                        @if (invoice.IsNegative == "Sim")
+                        {
+                            <span class="status-badge status-negative">
+                                <i class="fas fa-times-circle"></i> Negativado
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="status-badge status-positive">
+                                <i class="fas fa-check-circle"></i> Regular
+                            </span>
+                        }
+                    </td>
                     <td>@invoice.Address</td>
                     <td>@invoice.BarcodeNumber</td>
                 </tr>
@@ -47,25 +75,73 @@
     </table>
 </section>
 
-<section class="card-responsive" class="w-100">
+<!-- Cards para mobile -->
+<section class="card-responsive">
     @foreach (var invoice in Model)
     {
-        <div class="card mb-3">
-            <div class="card-header">
-                Documento: @invoice.Document
+        <div class="invoice-card">
+            <div class="invoice-card-header">
+                <i class="fas fa-id-card"></i> Documento: @invoice.Document
             </div>
-            <div class="card-body">
-                <h5 class="card-title">Número da Fatura: @invoice.InvoiceNumber</h5>
-                <p class="card-text"><strong>Emissão:</strong> @invoice.CreatedAt</p>
-                <p class="card-text"><strong>Vencimento:</strong> @invoice.DueDate</p>
-                <p class="card-text"><strong>Valor:</strong> @invoice.Value</p>
-                <p class="card-text"><strong>Juros:</strong> @invoice.Penalty</p>
-                <p class="card-text"><strong>Negativado:</strong> @invoice.IsNegative</p>
-                <p class="card-text"><strong>Endereço:</strong> @invoice.Address</p>
-                <p class="card-text"><strong>Código de Barras:</strong> @invoice.BarcodeNumber</p>
-                <a href="@Url.Action("Download", "Invoices", new { invoiceNumber = invoice.InvoiceNumber, document = invoice.Document })" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Download Fatura">
-                    <i class="fa-solid fa-download"></i> Download
-                </a>
+            <div class="invoice-card-body">
+                <h5 class="invoice-card-title">
+                    <i class="fas fa-file-invoice"></i>
+                    Fatura Nº @invoice.InvoiceNumber
+                </h5>
+
+                <div class="invoice-detail">
+                    <span class="invoice-label"><i class="fas fa-calendar-plus"></i> Emissão:</span>
+                    <span class="invoice-value">@(DateTime.TryParse(invoice.CreatedAt, out var createdDateCard) ? createdDateCard.ToString("dd/MM/yyyy") : invoice.CreatedAt)</span>
+                </div>
+
+                <div class="invoice-detail">
+                    <span class="invoice-label"><i class="fas fa-calendar-times"></i> Vencimento:</span>
+                    <span class="invoice-value">@(DateTime.TryParse(invoice.DueDate, out var dueDateCard) ? dueDateCard.ToString("dd/MM/yyyy") : invoice.DueDate)</span>
+                </div>
+
+                <div class="invoice-detail">
+                    <span class="invoice-label"><i class="fas fa-dollar-sign"></i> Valor:</span>
+                    <span class="invoice-value highlight">@invoice.Value</span>
+                </div>
+
+                <div class="invoice-detail">
+                    <span class="invoice-label"><i class="fas fa-percent"></i> Juros:</span>
+                    <span class="invoice-value">@invoice.Penalty</span>
+                </div>
+
+                <div class="invoice-detail">
+                    <span class="invoice-label"><i class="fas fa-exclamation-circle"></i> Status:</span>
+                    @if (invoice.IsNegative == "Sim")
+                    {
+                        <span class="status-badge status-negative">
+                            <i class="fas fa-times-circle"></i> Negativado
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="status-badge status-positive">
+                            <i class="fas fa-check-circle"></i> Regular
+                        </span>
+                    }
+                </div>
+
+                <div class="invoice-detail">
+                    <span class="invoice-label"><i class="fas fa-map-marker-alt"></i> Endereço:</span>
+                    <span class="invoice-value">@invoice.Address</span>
+                </div>
+
+                <div class="invoice-detail">
+                    <span class="invoice-label"><i class="fas fa-barcode"></i> Código:</span>
+                    <span class="invoice-value">@invoice.BarcodeNumber</span>
+                </div>
+
+                <div class="invoice-detail">
+                    <a href="@Url.Action("Download", "Invoices", new { invoiceNumber = invoice.InvoiceNumber, document = invoice.Document })"
+                       class="btn-download"
+                       title="Baixar fatura PDF">
+                        <i class="fas fa-download"></i> Baixar PDF
+                    </a>
+                </div>
             </div>
         </div>
     }

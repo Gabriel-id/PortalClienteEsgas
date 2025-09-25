@@ -9,39 +9,82 @@
     <link rel="stylesheet" href="~/PortalCliente.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/toastr.js/toastr.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- ===============================================
+         HEADER MODERNO
+         =============================================== -->
     <header>
-        <div class="nav-bar">
-            <div>
-                <img src="~/assets/images/logo.jpeg" />
+        <nav class="nav-bar">
+            <div class="nav-brand">
+                <img src="~/assets/images/logo.jpeg" alt="Logo ESGAS" class="logo" />
             </div>
-            <div>
+            <div class="nav-user">
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <span class="user-name"> @User.Claims.FirstOrDefault(c => c.Type == "UserName")?.Value </span>
+                    <div class="user-info">
+                        <i class="fas fa-user-circle"></i>
+                        <span class="user-name">@User.Claims.FirstOrDefault(c => c.Type == "UserName")?.Value</span>
+                    </div>
                     <form asp-controller="Account" asp-action="Logout" method="post" class="logout-form">
-                        <button type="submit" class="btn btn-outline-danger">
-                            Sair <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        <button type="submit" class="btn-modern btn-outline" title="Sair do sistema">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            <span class="btn-text">Sair</span>
                         </button>
                     </form>
                 }
             </div>
-        </div>
+        </nav>
     </header>
-    <div class="d-flex flex-column flex-shrink-0 p-3 text-white sidebar" style="width: 280px;">
-        <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item">
-                <a href="/" class="nav-link" aria-current="page">
-                    <i class="fa-solid fa-file-invoice"></i>
-                    <span class="m-2 fs-5">2° Via de Fatura</span>
-                </a>
-            </li>         
-        </ul>
-    </div>
+    <!-- ===============================================
+         SIDEBAR MODERNA
+         =============================================== -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h5 class="sidebar-title">Menu Principal</h5>
+        </div>
+        <nav class="sidebar-nav">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a href="/" class="nav-link active" aria-current="page" title="2ª Via de Fatura">
+                        <i class="fa-solid fa-file-invoice"></i>
+                        <span class="nav-text">2ª Via de Fatura</span>
+                    </a>
+                </li>
+                <!-- Espaço para futuras funcionalidades -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link disabled" title="Em breve">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span class="nav-text">Consumo</span>
+                        <span class="badge bg-secondary ms-auto">Em breve</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link disabled" title="Em breve">
+                        <i class="fa-solid fa-user-circle"></i>
+                        <span class="nav-text">Meu Perfil</span>
+                        <span class="badge bg-secondary ms-auto">Em breve</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="sidebar-user-info">
+                <small class="text-white-50">Portal Cliente ESGAS</small>
+            </div>
+        </div>
+    </aside>
 
-    <main role="main" class="pb-3">
-        @RenderBody()
+    <!-- ===============================================
+         CONTEÚDO PRINCIPAL
+         =============================================== -->
+    <main role="main" class="main-content">
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
     </main>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

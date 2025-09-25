@@ -11,7 +11,10 @@
       "Bash(dotnet sln:*)",
       "Bash(dotnet restore:*)",
       "Bash(dotnet test:*)",
-      "Bash(dotnet add package:*)"
+      "Bash(dotnet add package:*)",
+      "Bash(libman restore:*)",
+      "Bash(dotnet tool restore:*)",
+      "Bash(dotnet tool install:*)"
     ],
     "deny": [],
     "ask": []

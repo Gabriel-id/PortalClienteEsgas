@@ -13,29 +13,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - SeuProjeto</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css//login.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/toastr.js/toastr.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="logo-header">
-        <div>
-            <img src="~/assets/images/logo.jpeg" />
+        <div class="header-logo-container">
+            <img src="~/assets/images/logo.jpeg" alt="Logo ESGAS" class="header-logo" />
         </div>
-       </div>
+    </div>
     <div class="login-container">
         <div class="login-box">
-            <img src="~/assets/images/logo-portal.png" />
+            <img src="~/assets/images/logo-portal.png" alt="Portal Cliente ESGAS" class="login-logo" />
             <p>Bem-vindo ao Portal do Cliente da ESGÁS</p>
             <form method="post" asp-controller="account" asp-action="login">
                 <div class="form-group">
                     <label asp-for="Username">Usuário</label>
-                    <input asp-for="Username" class="form-control" />
+                    <input asp-for="Username" class="form-control" placeholder="Digite seu usuário" autocomplete="username" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Password">Login</label>
-                    <input asp-for="Password" type="password" class="form-control" />
+                    <label asp-for="Password">Senha</label>
+                    <input asp-for="Password" type="password" class="form-control" placeholder="Digite sua senha" autocomplete="current-password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
-                <button type="submit" class="btn btn-primary">Entrar</button>
+                <button type="submit" class="btn btn-primary" id="login-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Entrar
+                </button>
             </form>
         </div>
     </div>
