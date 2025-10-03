@@ -152,9 +152,9 @@
 
 @section Scripts {
     <script>
-        function downloadInvoice(invoiceNumber, document) {
+        function downloadInvoice(invoiceNumber, documentNumber) {
             // Cria a URL do download
-            var url = '@Url.Action("Download", "Invoices")' + '?invoiceNumber=' + encodeURIComponent(invoiceNumber) + '&document=' + encodeURIComponent(document);
+            var url = '@Url.Action("Download", "Invoices")' + '?invoiceNumber=' + encodeURIComponent(invoiceNumber) + '&document=' + encodeURIComponent(documentNumber);
 
             // Faz a requisição usando fetch
             fetch(url)
@@ -172,7 +172,7 @@
                         var downloadUrl = window.URL.createObjectURL(blob);
                         var a = document.createElement('a');
                         a.href = downloadUrl;
-                        a.download = invoiceNumber + '_' + document + '.pdf';
+                        a.download = invoiceNumber + '_' + documentNumber + '.pdf';
                         document.body.appendChild(a);
                         a.click();
                         a.remove();
