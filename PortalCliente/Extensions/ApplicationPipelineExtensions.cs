@@ -1,5 +1,4 @@
 using PortalCliente.Middleware;
-using PortalCliente.Services;
 
 namespace PortalCliente.Extensions
 {
@@ -7,9 +6,6 @@ namespace PortalCliente.Extensions
     {
         public static WebApplication ConfigurePipeline(this WebApplication app)
         {
-            // Configure MockSapServer for Development
-            ConfigureMockServer(app);
-
             // Global Exception Handling
             app.UseMiddleware<ExceptionHandlerMiddleware>();
 
@@ -41,24 +37,6 @@ namespace PortalCliente.Extensions
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             return app;
-        }
-
-        private static void ConfigureMockServer(WebApplication app)
-        {
-            MockSapServer? mockServer = null;
-
-            if (app.Environment.IsDevelopment())
-            {
-                var useMock = app.Configuration.GetValue<bool>("SapService:UseMock", false);
-                if (useMock)
-                {
-                    mockServer = new MockSapServer(app.Services.GetRequiredService<ILogger<MockSapServer>>());
-                    mockServer.Start(8080);
-
-                    // Ensure MockServer is disposed on shutdown
-                    app.Lifetime.ApplicationStopping.Register(() => mockServer.Dispose());
-                }
-            }
-        }
+        }        
     }
 }

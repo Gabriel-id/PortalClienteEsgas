@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortalCliente.Infrastructur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalCliente.Tests", "PortalCliente.Tests\PortalCliente.Tests.csproj", "{8B3BC024-BD27-48FC-92E6-F8D28CCAC790}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalCliente.MockSapServer", "PortalCliente.MockSapServer\PortalCliente.MockSapServer.csproj", "{CC5B20C8-2AC3-4FC6-B552-D11AF8CB1B77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{8B3BC024-BD27-48FC-92E6-F8D28CCAC790}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B3BC024-BD27-48FC-92E6-F8D28CCAC790}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B3BC024-BD27-48FC-92E6-F8D28CCAC790}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC5B20C8-2AC3-4FC6-B552-D11AF8CB1B77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC5B20C8-2AC3-4FC6-B552-D11AF8CB1B77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC5B20C8-2AC3-4FC6-B552-D11AF8CB1B77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC5B20C8-2AC3-4FC6-B552-D11AF8CB1B77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
