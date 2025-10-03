@@ -33,7 +33,9 @@ namespace PortalCliente.Controllers
                 {
                     ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
                 }
+
                 SendToastMessage("Por favor, corrija os erros de validação", "error");
+
                 return View(login);
             }
 
