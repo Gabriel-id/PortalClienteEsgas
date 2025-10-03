@@ -7,7 +7,9 @@ namespace PortalCliente.Core.Services
     {
         public Task<AuthResponse> Authenticate(Login login)
         {
-            var isCpf = login.Username.Length <= 11;
+            // Remove non-numeric characters to check length
+            var cleanUsername = new string(login.Username.Where(char.IsDigit).ToArray());
+            var isCpf = cleanUsername.Length == 11;
 
             var authSapRequest = new AuthRequest
             {
